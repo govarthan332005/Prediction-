@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#0a0418" />
+<meta name="description" content="Roulette Predictor — Admin Control Panel" />
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Roulette Admin" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="format-detection" content="telephone=no" />
+
+<title>⚙ Roulette Admin · Control Center</title>
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚙️%3C/text%3E%3C/svg%3E" />
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚙️%3C/text%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="bg-blobs" aria-hidden="true">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+</div>
+
+<!-- ===== LOGIN ===== -->
+<div id="loginScreen" class="screen active">
+  <div class="login-card">
+    <div class="logo-wrap">
+      <div class="logo-emoji">⚙️</div>
+      <div class="logo-rings"><span></span><span></span><span></span></div>
+    </div>
+    <h1 class="brand-title">Admin<span class="dot-ai">Panel</span></h1>
+    <p class="subtitle">Roulette AI · Control Center · Premium 🛠</p>
+
+    <div class="feature-pills">
+      <span class="fp">📥 Bulk Upload</span>
+      <span class="fp">📊 Analytics</span>
+      <span class="fp">💾 Backup</span>
+    </div>
+
+    <input type="email" id="email" placeholder="📧 Admin email" autocomplete="email" />
+    <input type="password" id="password" placeholder="🔒 Password" autocomplete="current-password" />
+
+    <button id="loginBtn" class="btn btn-primary">🔐 Login</button>
+    <button id="signupBtn" class="btn btn-secondary">✨ Create Admin Account</button>
+    <button id="forgotBtn" class="btn-link">Forgot password?</button>
+    <div id="loginMsg" class="msg"></div>
+
+    <div class="login-foot">
+      <span>v3.1 · 9-Model Engine · Admin Edition</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div id="dashboard" class="screen">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-icon">⚙️</span>
+      <span class="brand-text">Admin<b>Panel</b></span>
+    </div>
+    <div class="topbar-right">
+      <span class="user-chip" id="adminChip">—</span>
+      <button id="helpBtn" class="btn-icon" title="Help" aria-label="Help">?</button>
+      <button id="logoutBtn" class="btn-icon" title="Logout" aria-label="Logout">⏻</button>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab active" data-tab="overview" role="tab"><span class="tab-icon">🏠</span><span>Overview</span></button>
+    <button class="tab" data-tab="upload" role="tab"><span class="tab-icon">📥</span><span>Upload</span></button>
+    <button class="tab" data-tab="live" role="tab"><span class="tab-icon">⚡</span><span>Live</span></button>
+    <button class="tab" data-tab="data" role="tab"><span class="tab-icon">📊</span><span>Sessions</span></button>
+    <button class="tab" data-tab="stats" role="tab"><span class="tab-icon">📈</span><span>Stats</span></button>
+    <button class="tab" data-tab="users" role="tab"><span class="tab-icon">👥</span><span>Users</span></button>
+    <button class="tab" data-tab="test" role="tab"><span class="tab-icon">🧠</span><span>Test AI</span></button>
+    <button class="tab" data-tab="backup" role="tab"><span class="tab-icon">💾</span><span>Backup</span></button>
+  </nav>
+
+  <main class="content">
+
+    <!-- OVERVIEW -->
+    <section class="tab-panel active" data-panel="overview">
+      <div class="card hero-card">
+        <div class="card-head">
+          <h2><span class="emoji-bg">👋</span> Welcome back<span id="welcomeName"></span></h2>
+        </div>
+        <p class="hint">Your control center for the 9-model AI roulette engine.</p>
+
+        <div class="overview-grid">
+          <div class="ov-stat ov-primary">
+            <div class="ov-icon">🎲</div>
+            <div class="ov-num" id="ovTotalSpins">0</div>
+            <div class="ov-lbl">Training spins</div>
+          </div>
+          <div class="ov-stat">
+            <div class="ov-icon">📦</div>
+            <div class="ov-num" id="ovSessions">0</div>
+            <div class="ov-lbl">Sessions</div>
+          </div>
+          <div class="ov-stat">
+            <div class="ov-icon">👥</div>
+            <div class="ov-num" id="ovUsers">0</div>
+            <div class="ov-lbl">Users</div>
+          </div>
+          <div class="ov-stat">
+            <div class="ov-icon">🎯</div>
+            <div class="ov-num" id="ovPreds">0</div>
+            <div class="ov-lbl">Predictions</div>
+          </div>
+          <div class="ov-stat">
+            <div class="ov-icon">✓</div>
+            <div class="ov-num" id="ovAccuracy">—</div>
+            <div class="ov-lbl">Accuracy</div>
+          </div>
+          <div class="ov-stat">
+            <div class="ov-icon">⚡</div>
+            <div class="ov-num" id="ovLive">0</div>
+            <div class="ov-lbl">Today's spins</div>
+          </div>
+        </div>
+
+        <div class="quick-actions">
+          <button class="qa-btn" data-go-tab="upload" type="button"><span>📥</span>Bulk upload</button>
+          <button class="qa-btn" data-go-tab="live" type="button"><span>⚡</span>Live entry</button>
+          <button class="qa-btn" data-go-tab="test" type="button"><span>🧠</span>Test AI</button>
+          <button class="qa-btn" data-go-tab="backup" type="button"><span>💾</span>Backup</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2><span class="emoji-bg">📡</span> Recent Activity</h2>
+        </div>
+        <div id="recentActivity" class="recent-list">
+          <div class="empty-hint">Loading…</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2><span class="emoji-bg">💡</span> Health Check</h2>
+        </div>
+        <div id="healthList" class="health-list"></div>
+      </div>
+    </section>
+
+    <!-- UPLOAD -->
+    <section class="tab-panel" data-panel="upload">
+      <div class="card">
+        <div class="card-head">
+          <h2><span class="emoji-bg">📥</span> Bulk Data Upload</h2>
+        </div>
+        <p class="hint">Feed your roulette data. Supports paste, CSV, JSON, quick-tap &amp; number-pad.</p>
+
+        <div class="upload-modes" role="tablist">
+          <button class="mode-btn active" data-mode="paste" type="button">📋 Paste</button>
+          <button class="mode-btn" data-mode="csv" type="button">📄 CSV</button>
+          <button class="mode-btn" data-mode="json" type="button">{ } JSON</button>
+          <button class="mode-btn" data-mode="manual" type="button">⚡ Quick</button>
+          <button class="mode-btn" data-mode="numbers" type="button">🔢 Numbers</button>
+        </div>
+
+        <!-- PASTE -->
+        <div class="mode-content active" data-content="paste">
+          <label>Even/Odd sequence (E/O):</label>
+          <textarea id="pasteEvenOdd" rows="3" placeholder="E O E E O O E O E O ..."></textarea>
+          <label>Color sequence (R/B, optional):</label>
+          <textarea id="pasteColor" rows="3" placeholder="R B B R B R R B ..."></textarea>
+          <label>Session label:</label>
+          <input type="text" id="pasteLabel" placeholder="e.g. Evening 5h - Table 3" />
+          <label>Table tag (optional):</label>
+          <input type="text" id="pasteTable" placeholder="e.g. Table-3, Casino-X" />
+          <label>Notes (optional):</label>
+          <input type="text" id="pasteNotes" placeholder="e.g. Dealer change at spin 50" />
+          <div class="info-box">
+            <b>💡 Tip:</b> If you only have E/O data, that's fine — Color analysis simply skips unknown entries.
+          </div>
+          <button id="pasteUploadBtn" class="btn btn-primary" type="button">⬆ Upload Sequence</button>
+        </div>
+
+        <!-- CSV -->
+        <div class="mode-content" data-content="csv">
+          <label>CSV format options:</label>
+          <ul class="format-list">
+            <li><code>E,R</code> — even_odd, color per row</li>
+            <li><code>17</code> — number 0–36 (E/O &amp; color auto)</li>
+            <li><code>17,R</code> — number with explicit color</li>
+          </ul>
+          <input type="file" id="csvFile" accept=".csv,.txt" />
+          <input type="text" id="csvLabel" placeholder="Session label" />
+          <input type="text" id="csvTable" placeholder="Table tag (optional)" />
+          <button id="csvUploadBtn" class="btn btn-primary" type="button">⬆ Upload CSV</button>
+        </div>
+
+        <!-- JSON -->
+        <div class="mode-content" data-content="json">
+          <label>JSON array of objects:</label>
+          <pre class="code-block">[
+  {"even_odd":"E","color":"R","number":12},
+  {"even_odd":"O","color":"B"},
+  ...
+]</pre>
+          <input type="file" id="jsonFile" accept=".json" />
+          <input type="text" id="jsonLabel" placeholder="Session label" />
+          <input type="text" id="jsonTable" placeholder="Table tag (optional)" />
+          <button id="jsonUploadBtn" class="btn btn-primary" type="button">⬆ Upload JSON</button>
+        </div>
+
+        <!-- QUICK ADD -->
+        <div class="mode-content" data-content="manual">
+          <label>Tap each combo for every spin:</label>
+          <div class="quick-grid">
+            <button class="qbtn even-red" data-eo="E" data-color="R" type="button">E + RED</button>
+            <button class="qbtn even-black" data-eo="E" data-color="B" type="button">E + BLACK</button>
+            <button class="qbtn odd-red" data-eo="O" data-color="R" type="button">O + RED</button>
+            <button class="qbtn odd-black" data-eo="O" data-color="B" type="button">O + BLACK</button>
+          </div>
+          <div class="quick-counter">Buffered: <b id="quickCount">0</b> spins</div>
+          <div class="quick-recent" id="quickRecent"></div>
+          <div class="action-row two">
+            <button id="quickUndoBtn" class="btn btn-ghost" type="button">↶ Undo</button>
+            <button id="quickClearBtn" class="btn btn-ghost" type="button">✕ Clear</button>
+          </div>
+          <input type="text" id="quickLabel" placeholder="Session label (optional)" />
+          <button id="quickSaveBtn" class="btn btn-primary" type="button">💾 Save Batch</button>
+        </div>
+
+        <!-- NUMBERS -->
+        <div class="mode-content" data-content="numbers">
+          <label>Tap actual roulette numbers (0–36):</label>
+          <div class="number-pad small" id="uploadNumPad"></div>
+          <div class="quick-counter">Buffered: <b id="numCount">0</b> spins</div>
+          <div class="quick-recent" id="numRecent"></div>
+          <div class="action-row two">
+            <button id="numUndoBtn" class="btn btn-ghost" type="button">↶ Undo</button>
+            <button id="numClearBtn" class="btn btn-ghost" type="button">✕ Clear</button>
+          </div>
+          <input type="text" id="numLabel" placeholder="Session label (optional)" />
+          <button id="numSaveBtn" class="btn btn-primary" type="button">💾 Save Batch</button>
+        </div>
+
+        <div id="uploadProgress" class="progress hidden">
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-text" id="progressText">Uploading...</div>
+        </div>
+
+        <div id="uploadMsg" class="msg"></div>
+      </div>
+    </section>
+
+    <!-- LIVE -->
+    <section class="tab-panel" data-panel="live">
+      <div class="card">
+        <div class="card-head">
+          <h2><span class="emoji-bg">⚡</span> Live Roulette Entry</h2>
+        </div>
+        <p class="hint">Real-time spin recording — instantly streams to user prediction app.</p>
+
+        <div class="live-stats">
+          <div class="stat-box"><span class="stat-num" id="liveTotal">0</span><span class="stat-lbl">Total spins</span></div>
+          <div class="stat-box"><span class="stat-num" id="liveEven">0%</span><span class="stat-lbl">Even %</span></div>
+          <div class="stat-box"><span class="stat-num" id="liveRed">0%</span><span class="stat-lbl">Red %</span></div>
+        </div>
+
+        <label class="live-table-row">
+          <span>🏷 Active table:</span>
+          <input type="text" id="liveTableTag" placeholder="e.g. Table-1" />
+        </label>
+
+        <div class="number-pad" id="livePad"></div>
+
+        <div class="live-feed" id="liveFeed"></div>
+
+        <div class="action-row two">
+          <button id="liveUndoBtn" class="btn btn-ghost" type="button">↶ Undo Last</button>
+          <button id="liveClearTodayBtn" class="btn btn-danger" type="button">🗑 Clear Today</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DATA -->
+    <section class="tab-panel" data-panel="data">
+      <div class="card">
+        <div class="card-head">
+          <h2><span class="emoji-bg">📊</span> All Sessions</h2>
+        </div>
+        <div class="search-row">
+          <input type="text" id="searchData" placeholder="🔍 Filter by label / table / notes..." />
+          <select id="sortData">
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+            <option value="largest">Largest first</option>
+            <option value="smallest">Smallest first</option>
+          </select>
+        </div>
+        <div class="action-row two">
+          <button id="exportAllBtn" class="btn btn-ghost" type="button">⤓ Export All</button>
+          <button id="clearAllBtn" class="btn btn-danger" type="button">🗑 Delete All</button>
+        </div>
+        <div id="dataList" class="data-list"></div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="tab-panel" data-panel="stats">
+      <div class="card">
+        <div class="card-head">
+          <h2><span class="emoji-bg">📈</span> Distribution Analytics</h2>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-title">Total spins</div>
+            <div class="stat-value" id="totalSpins">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-title">Longest streak</div>
+            <div class="stat-value" id="longestStreak">—</div>
+          </div>
+          <div class="stat-card wide">
+            <div class="stat-title">Even / Odd</div>
+            <div class="stat-bar">
+              <div class="bar-even" id="barEven"></div>
+              <div class="bar-odd" id="barOdd"></div>
+            </div>
+            <div class="stat-detail" id="detailEO">No data</div>
+          </div>
+          <div class="stat-card wide">
+            <div class="stat-title">Red / Black</div>
+            <div class="stat-bar">
+              <div class="bar-red" id="barRed"></div>
+              <div class="bar-black" id="barBlack"></div>
+            </div>
+            <div class="stat-detail" id="detailRB">No data</div>
+          </div>
+          <div class="stat-card wide">
+            <div class="stat-title">Frequency Heatmap (last 100)</div>
+            <canvas id="heatmap" width="640" height="80"></canvas>
+            <div class="legend">
+              <span><i style="background:#a78bfa"></i>Even</span>
+              <span><i style="background:#fbbf24"></i>Odd</span>
+              <span><i style="background:#ef4444"></i>Red</span>
+              <span><i style="background:#1e293b"></i>Black</span>
+            </div>
+          </div>
+          <div class="stat-card wide">
+            <div class="stat-title">Number Frequency (0–36)</div>
+            <canvas id="numFreq" width="640" height="120"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USERS -->
+    <section class="tab-panel" data-panel="users">
+      <div class="card">
+        <div class="card-head">
+          <h2><span class="emoji-bg">👥</span> Registered Users</h2>
+        </div>
+        <div class="search-row">
+          <input type="text" id="searchUsers" placeholder="🔍 Search by email..." />
+          <select id="sortUsers">
+            <option value="recent">Most recent</option>
+            <option value="active">Most active</option>
+            <option value="accurate">Most accurate</option>
+          </select>
+        </div>
+        <div id="userList" class="user-list"></div>
+      </div>
+    </section>
+
+    <!-- TEST AI -->
+    <section class="tab-panel" data-panel="test">
+      <div class="card">
+        <div class="card-head">
+          <h2><span class="emoji-bg">🧠</span> Test the AI Engine</h2>
+        </div>
+        <p class="hint">9-model premium ensemble. Validate predictions before users see them.</p>
+        <div class="mode-tabs test-mode-tabs">
+          <button class="mode-tab active" data-testmode="even_odd" type="button">Even/Odd</button>
+          <button class="mode-tab" data-testmode="color" type="button">Red/Black</button>
+        </div>
+        <div class="seq-display" id="testSeq" aria-live="polite"></div>
+        <div class="big-btn-row" id="testEoBtns">
+          <button class="big-btn even" data-test="E" type="button"><div class="big-btn-num">E</div><div class="big-btn-lbl">EVEN</div></button>
+          <button class="big-btn odd" data-test="O" type="button"><div class="big-btn-num">O</div><div class="big-btn-lbl">ODD</div></button>
+        </div>
+        <div class="big-btn-row hidden" id="testColorBtns">
+          <button class="big-btn red" data-test="R" type="button"><div class="big-btn-num">R</div><div class="big-btn-lbl">RED</div></button>
+          <button class="big-btn black" data-test="B" type="button"><div class="big-btn-num">B</div><div class="big-btn-lbl">BLACK</div></button>
+        </div>
+        <div class="action-row">
+          <button id="testUndoBtn" class="btn btn-ghost" type="button">↶ Undo</button>
+          <button id="testClearBtn" class="btn btn-ghost" type="button">✕ Clear</button>
+          <button id="testRunBtn" class="btn btn-primary" type="button">🔮 Predict</button>
+        </div>
+        <div id="testResult" class="test-result hidden"></div>
+      </div>
+    </section>
+
+    <!-- BACKUP -->
+    <section class="tab-panel" data-panel="backup">
+      <div class="card">
+        <div class="card-head">
+          <h2><span class="emoji-bg">💾</span> Backup &amp; Restore</h2>
+        </div>
+        <p class="hint">Download a complete copy or restore from a previous backup.</p>
+
+        <div class="backup-card">
+          <h3>📤 Download Backup</h3>
+          <p>Exports all sessions, history, users, and predictions as a single JSON file.</p>
+          <button id="backupBtn" class="btn btn-primary" type="button">⬇ Download Backup Now</button>
+          <div id="backupInfo" class="backup-info"></div>
+        </div>
+
+        <div class="backup-card">
+          <h3>📥 Restore from File</h3>
+          <p>⚠ This will <b>merge</b> the backup file into the existing database.</p>
+          <input type="file" id="restoreFile" accept=".json" />
+          <button id="restoreBtn" class="btn btn-primary" type="button">⬆ Restore Backup</button>
+          <div id="restoreInfo" class="msg"></div>
+        </div>
+
+        <div class="backup-card danger">
+          <h3>☠ Danger Zone</h3>
+          <p>Wipe ALL data. This is <b>permanent</b>. Type <code>WIPE</code> to confirm.</p>
+          <input type="text" id="wipeConfirm" placeholder='Type "WIPE" to enable' />
+          <button id="wipeBtn" class="btn btn-danger" disabled type="button">🔥 Wipe Entire Database</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ===== Help Modal ===== -->
+<div id="helpModal" class="modal hidden">
+  <div class="modal-card">
+    <button class="modal-close" id="helpClose" type="button" aria-label="Close">✕</button>
+    <h2>📖 Admin Quick Help</h2>
+    <div class="help-section">
+      <h3>🏠 Overview</h3>
+      <p>One-glance view of the entire system. Click any quick action to jump.</p>
+    </div>
+    <div class="help-section">
+      <h3>📥 Upload</h3>
+      <p>5 ways to feed data: paste raw E/O sequences, drop CSV/JSON files, tap quick-add, or use the number pad.</p>
+    </div>
+    <div class="help-section">
+      <h3>⚡ Live Entry</h3>
+      <p>Tap roulette numbers as they happen — instantly streams to the user app.</p>
+    </div>
+    <div class="help-section">
+      <h3>🧠 Test AI</h3>
+      <p>Validate the 9-model premium ensemble before users see predictions.</p>
+    </div>
+    <div class="help-section">
+      <h3>💾 Backup</h3>
+      <p>Download your full database any time. Restore later if anything goes wrong.</p>
+    </div>
+    <div class="help-section">
+      <h3>⌨ Keyboard Shortcuts</h3>
+      <p><kbd>E</kbd> <kbd>O</kbd> Even/Odd · <kbd>R</kbd> <kbd>B</kbd> Red/Black · <kbd>Esc</kbd> close modal</p>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
